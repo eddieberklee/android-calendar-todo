@@ -46,8 +46,9 @@
     <color name="white_transp_80">#CCFFFFFF</color>
     <color name="white_transp_90">#E6FFFFFF</color>
 
-    <!-- I like this green and blue: -->
+    <!-- I like this green -->
     <!--#42AE1E-->
+    <!-- and blue: -->
     <!--#2173CD-->
 
 </resources>

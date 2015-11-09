@@ -7,6 +7,6 @@
 
     <dimen name="standard_padding">16dp</dimen>
     <dimen name="day_section_list_padding">16dp</dimen>
-    <dimen name="list_day_item_height">30dp</dimen>
+    <dimen name="list_day_item_height">40dp</dimen>
 
 </resources>

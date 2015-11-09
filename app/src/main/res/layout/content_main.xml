@@ -42,11 +42,6 @@
                 android:src="@drawable/ic_add_circle_outline_black_48dp"/>
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/flatui_yellow_2"/>
-
         <ListView
             android:id="@+id/day_section_morning_listview"
             android:layout_width="match_parent"
@@ -82,11 +77,6 @@
                 android:src="@drawable/ic_add_circle_outline_black_48dp"/>
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/flatui_teal_1"/>
-
         <ListView
             android:id="@+id/day_section_afternoon_listview"
             android:layout_width="match_parent"
@@ -118,11 +108,6 @@
                 android:layout_height="24dp"
                 android:src="@drawable/ic_add_circle_outline_black_48dp"/>
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/flatui_blue_2"/>
 
         <ListView
             android:id="@+id/day_section_evening_listview"

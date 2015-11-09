@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-  private static final int MAX_LIST_COUNT = 3;
+  private static final int MAX_VISIBLE_LIST_COUNT = 4;
   private ImageView mAddButtonMorning;
   private ImageView mAddButtonAfternoon;
   private ImageView mAddButtonEvening;
@@ -69,13 +69,16 @@ public class MainActivity extends AppCompatActivity {
   private void addStringToListView(String item, ArrayList<String> arrayList, ListView listView) {
     arrayList.add(item);
     int listCount = arrayList.size();
-    if (listCount < MAX_LIST_COUNT) {
+    if (listCount < MAX_VISIBLE_LIST_COUNT) {
       listView.getLayoutParams().height = listCount * getResources().getDimensionPixelOffset(R.dimen.list_day_item_height);
-    } else {
-      // set maximum height
-      listView.getLayoutParams().height = MAX_LIST_COUNT * getResources().getDimensionPixelOffset(R.dimen.list_day_item_height);
+    } else { // enforce a maximum height to listview
+      // 0.5 margin is so that the list's last item gets cut off,
+      listView.getLayoutParams().height = (int) Math.round((MAX_VISIBLE_LIST_COUNT - 0.5) * getResources().getDimensionPixelOffset(R.dimen.list_day_item_height));
     }
-    ((ArrayAdapter<String>) mListViewMorning.getAdapter()).notifyDataSetChanged();
+    ArrayAdapter<String> arrayAdapter = (ArrayAdapter<String>) mListViewMorning.getAdapter();
+    if (arrayAdapter != null) { // Will be null if added in onCreate() before adapter set
+      arrayAdapter.notifyDataSetChanged();
+    }
   }
 
   private View.OnClickListener mAddButtonMorningListener = new View.OnClickListener() {
