@@ -21,5 +21,11 @@
         <item name="android:padding">@dimen/day_section_list_padding</item>
         <item name="android:layout_height">@dimen/day_section_header_height</item>
     </style>
+    <style name="DayItemsListTheme">
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">0dp</item>
+        <item name="android:paddingLeft">@dimen/day_section_list_padding</item>
+        <item name="android:paddingRight">@dimen/day_section_list_padding</item>
+    </style>
 
 </resources>

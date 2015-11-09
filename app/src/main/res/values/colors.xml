@@ -4,6 +4,12 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="morning_color">@color/flatui_yellow_1</color>
+    <color name="afternoon_color">@color/flatui_green_2</color>
+    <color name="evening_color">@color/flatui_blue_1</color>
+
+    <!-- GENERICS below... -->
+
     <!-- flat ui colors-->
     <color name="flatui_lightgrey_1">#ecf0f1</color>
     <color name="flatui_lightgrey_2">#bdc3c7</color>

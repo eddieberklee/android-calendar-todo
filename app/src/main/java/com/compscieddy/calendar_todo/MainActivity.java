@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     setSupportActionBar(toolbar);
 
     ScalpelFrameLayout scalpelFrameLayout = (ScalpelFrameLayout) findViewById(R.id.root_scalpel_layout);
+    // TODO: this option should be programmed into the onMenuItemSelected() thing
 //    scalpelFrameLayout.setLayerInteractionEnabled(true);
 //    scalpelFrameLayout.setDrawViews(true);
 
