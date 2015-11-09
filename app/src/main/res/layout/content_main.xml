@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.jakewharton.scalpel.ScalpelFrameLayout
+    android:id="@+id/root_scalpel_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="?attr/actionBarSize">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".MainActivity"
+        tools:showIn="@layout/activity_main">
+
+        <LinearLayout
+            android:id="@+id/day_section_morning_header"
+            android:layout_width="match_parent"
+            android:background="@color/flatui_yellow_1"
+            android:orientation="horizontal"
+            style="@style/HeaderLayoutTheme">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/HeaderTitleTextTheme"
+                android:text="@string/day_section_morning"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/add_button_morning"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_add_circle_outline_black_48dp"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/flatui_yellow_2"/>
+
+        <ListView
+            android:id="@+id/day_section_morning_listview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingLeft="@dimen/day_section_list_padding"
+            android:paddingRight="@dimen/day_section_list_padding"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:background="@color/flatui_yellow_1"/>
+
+        <LinearLayout
+            android:id="@+id/day_section_afternoon_header"
+            android:layout_width="match_parent"
+            android:background="@color/flatui_green_2"
+            android:orientation="horizontal"
+            style="@style/HeaderLayoutTheme">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/HeaderTitleTextTheme"
+                android:text="@string/day_section_afternoon"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/add_button_afternoon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_add_circle_outline_black_48dp"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/flatui_teal_1"/>
+
+        <ListView
+            android:id="@+id/day_section_afternoon_listview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:divider="@null"
+            android:dividerHeight="0dp"/>
+
+        <LinearLayout
+            android:id="@+id/day_section_evening_header"
+            android:layout_width="match_parent"
+            android:background="@color/flatui_blue_1"
+            android:orientation="horizontal"
+            style="@style/HeaderLayoutTheme">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/HeaderTitleTextTheme"
+                android:text="@string/day_section_evening"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/add_button_evening"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_add_circle_outline_black_48dp"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/flatui_blue_2"/>
+
+        <ListView
+            android:id="@+id/day_section_evening_listview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:divider="@null"
+            android:dividerHeight="0dp"/>
+
+
+    </LinearLayout>
+
+</com.jakewharton.scalpel.ScalpelFrameLayout>
