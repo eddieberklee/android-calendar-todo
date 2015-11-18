@@ -18,14 +18,32 @@
         <item name="android:textColor">@color/white_transp_90</item><!-- create colors of percentages of black -->
     </style>
     <style name="HeaderLayoutTheme">
-        <item name="android:padding">@dimen/day_section_list_padding</item>
-        <item name="android:layout_height">@dimen/day_section_header_height</item>
+        <item name="android:paddingTop">@dimen/day_section_list_padding</item>
+        <item name="android:paddingLeft">@dimen/day_section_list_padding</item>
+        <item name="android:paddingRight">@dimen/day_section_list_padding</item>
+        <!--<item name="android:paddingBottom">@dimen/day_section_list_padding_smaller</item>-->
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:clipToPadding">false</item><!-- add button needed to be adjusted up -->
     </style>
     <style name="DayItemsListTheme">
         <item name="android:divider">@null</item>
         <item name="android:dividerHeight">0dp</item>
+        <item name="android:paddingTop">0dp</item>
         <item name="android:paddingLeft">@dimen/day_section_list_padding</item>
         <item name="android:paddingRight">@dimen/day_section_list_padding</item>
+        <item name="android:paddingBottom">@dimen/day_section_list_padding</item>
+        <item name="android:clipToPadding">false</item>
+    </style>
+    <style name="AddButton">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_marginTop">-3dp</item>
+        <item name="android:src">@drawable/ic_add_circle_outline_black_48dp</item>
+    </style>
+    <style name="DialogDayItemButton">
+        <item name="android:layout_width">36dp</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
 </resources>

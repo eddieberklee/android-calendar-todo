@@ -37,9 +37,7 @@
 
             <ImageView
                 android:id="@+id/add_button_morning"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_add_circle_outline_black_48dp"/>
+                style="@style/AddButton"/>
         </LinearLayout>
 
         <ListView
@@ -69,9 +67,7 @@
 
             <ImageView
                 android:id="@+id/add_button_afternoon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_add_circle_outline_black_48dp"/>
+                style="@style/AddButton"/>
         </LinearLayout>
 
         <ListView
@@ -101,9 +97,7 @@
 
             <ImageView
                 android:id="@+id/add_button_evening"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_add_circle_outline_black_48dp"/>
+                style="@style/AddButton"/>
         </LinearLayout>
 
         <ListView

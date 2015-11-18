@@ -1,8 +1,10 @@
 package com.compscieddy.calendar_todo;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.widget.Toast;
 
 /**
  * Created by elee on 11/8/15.
@@ -21,6 +23,10 @@ public class Util {
     } else {
       drawable.setColorFilter(color, mode);
     }
+  }
+
+  public static void showToast(Context context, String message) {
+    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
   }
 
 }

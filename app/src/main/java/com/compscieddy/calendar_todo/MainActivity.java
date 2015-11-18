@@ -1,5 +1,8 @@
 package com.compscieddy.calendar_todo;
 
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
   private ArrayList<String> mDayItemsMorning = new ArrayList<>();
   private ArrayList<String> mDayItemsAfternoon = new ArrayList<>();
   private ArrayList<String> mDayItemsEvening = new ArrayList<>();
+  private ScalpelFrameLayout mScalpelFrameLayout;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    ScalpelFrameLayout scalpelFrameLayout = (ScalpelFrameLayout) findViewById(R.id.root_scalpel_layout);
+    mScalpelFrameLayout = (ScalpelFrameLayout) findViewById(R.id.root_scalpel_layout);
     // TODO: this option should be programmed into the onMenuItemSelected() thing
 //    scalpelFrameLayout.setLayerInteractionEnabled(true);
 //    scalpelFrameLayout.setDrawViews(true);
@@ -82,10 +86,20 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
+  private static final String DAY_ITEM_DIALOG = "day_item_dialog";
+
   private View.OnClickListener mAddButtonMorningListener = new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-      addStringToListView("another item", mDayItemsMorning, mListViewMorning);
+      FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+      Fragment previousFragment = getFragmentManager().findFragmentByTag(DAY_ITEM_DIALOG);
+      if (previousFragment != null) {
+        fragmentTransaction.remove(previousFragment);
+      }
+      fragmentTransaction.addToBackStack(null);
+      DialogFragment dayItemDialogFragment = new DayItemDialogFragment();
+      dayItemDialogFragment.show(fragmentTransaction, DAY_ITEM_DIALOG);
+//      addStringToListView("another item", mDayItemsMorning, mListViewMorning);
     }
   };
   private View.OnClickListener mAddButtonAfternoonListener = new View.OnClickListener() {
@@ -126,6 +140,12 @@ public class MainActivity extends AppCompatActivity {
 
     //noinspection SimplifiableIfStatement
     if (id == R.id.action_settings) {
+      return true;
+    } else if (id == R.id.action_scalpel) {
+      boolean turnOn = !mScalpelFrameLayout.isLayerInteractionEnabled();
+      mScalpelFrameLayout.setLayerInteractionEnabled(turnOn);
+      mScalpelFrameLayout.setDrawViews(turnOn);
+      mScalpelFrameLayout.invalidate();
       return true;
     }
 
