@@ -27,6 +27,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:background="@android:color/white">
         <EditText
             android:id="@+id/dialog_title_edit_text"

@@ -53,10 +53,13 @@ public class MainActivity extends AppCompatActivity implements AddDayItemInterfa
     mListViewMorning = (ListView) findViewById(R.id.day_section_morning_listview);
     mListViewAfternoon = (ListView) findViewById(R.id.day_section_afternoon_listview);
     mListViewEvening = (ListView) findViewById(R.id.day_section_evening_listview);
-    addStringToListView(MainActivity.this, "hello there, first item", mDayItemsMorning, mListViewMorning);
+
     mListViewMorning.setAdapter(new DayItemsAdapter(MainActivity.this, mDayItemsMorning));
     mListViewAfternoon.setAdapter(new DayItemsAdapter(MainActivity.this, mDayItemsAfternoon));
     mListViewEvening.setAdapter(new DayItemsAdapter(MainActivity.this, mDayItemsEvening));
+
+    // dummy seed
+    addStringToListView(MainActivity.this, "hello there, first item", mDayItemsMorning, mListViewMorning);
 
     mAddButtonMorning.setOnClickListener(mAddButtonMorningListener);
     mAddButtonAfternoon.setOnClickListener(mAddButtonAfternoonListener);
