@@ -3,6 +3,7 @@ package com.compscieddy.calendar_todo;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,7 +20,7 @@ import com.jakewharton.scalpel.ScalpelFrameLayout;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AddDayItemInterface {
 
   private static final int MAX_VISIBLE_LIST_COUNT = 4;
   private ImageView mAddButtonMorning;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     mListViewMorning = (ListView) findViewById(R.id.day_section_morning_listview);
     mListViewAfternoon = (ListView) findViewById(R.id.day_section_afternoon_listview);
     mListViewEvening = (ListView) findViewById(R.id.day_section_evening_listview);
-    addStringToListView("hello there, first item", mDayItemsMorning, mListViewMorning);
+    addStringToListView(MainActivity.this, "hello there, first item", mDayItemsMorning, mListViewMorning);
     mListViewMorning.setAdapter(new DayItemsAdapter(MainActivity.this, mDayItemsMorning));
     mListViewAfternoon.setAdapter(new DayItemsAdapter(MainActivity.this, mDayItemsAfternoon));
     mListViewEvening.setAdapter(new DayItemsAdapter(MainActivity.this, mDayItemsEvening));
@@ -71,16 +72,16 @@ public class MainActivity extends AppCompatActivity {
     });
   }
 
-  private void addStringToListView(String item, ArrayList<String> arrayList, ListView listView) {
+  public static void addStringToListView(Context context, String item, ArrayList<String> arrayList, ListView listView) {
     arrayList.add(item);
     int listCount = arrayList.size();
     if (listCount < MAX_VISIBLE_LIST_COUNT) {
-      listView.getLayoutParams().height = listCount * getResources().getDimensionPixelOffset(R.dimen.list_day_item_height);
+      listView.getLayoutParams().height = listCount * context.getResources().getDimensionPixelOffset(R.dimen.list_day_item_height);
     } else { // enforce a maximum height to listview
       // 0.5 margin is so that the list's last item gets cut off,
-      listView.getLayoutParams().height = (int) Math.round((MAX_VISIBLE_LIST_COUNT - 0.5) * getResources().getDimensionPixelOffset(R.dimen.list_day_item_height));
+      listView.getLayoutParams().height = (int) Math.round((MAX_VISIBLE_LIST_COUNT - 0.5) * context.getResources().getDimensionPixelOffset(R.dimen.list_day_item_height));
     }
-    ArrayAdapter<String> arrayAdapter = (ArrayAdapter<String>) mListViewMorning.getAdapter();
+    ArrayAdapter<String> arrayAdapter = (ArrayAdapter<String>) listView.getAdapter();
     if (arrayAdapter != null) { // Will be null if added in onCreate() before adapter set
       arrayAdapter.notifyDataSetChanged();
     }
@@ -105,15 +106,28 @@ public class MainActivity extends AppCompatActivity {
   private View.OnClickListener mAddButtonAfternoonListener = new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-      addStringToListView("another item", mDayItemsAfternoon, mListViewAfternoon);
+      onAddAfternoonItemClick("dummy afternoon item");
     }
   };
   private View.OnClickListener mAddButtonEveningListener = new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-      addStringToListView("another item", mDayItemsEvening, mListViewEvening);
+      onAddEveningItemClick("dummy evening item");
     }
   };
+
+  @Override
+  public void onAddMorningItemClick(String itemString) {
+    addStringToListView(MainActivity.this, itemString, mDayItemsMorning, mListViewMorning);
+  }
+  @Override
+  public void onAddAfternoonItemClick(String itemString) {
+    addStringToListView(MainActivity.this, itemString, mDayItemsAfternoon, mListViewAfternoon);
+  }
+  @Override
+  public void onAddEveningItemClick(String itemString) {
+    addStringToListView(MainActivity.this, itemString, mDayItemsEvening, mListViewEvening);
+  }
 
   @Override
   protected void onResume() {

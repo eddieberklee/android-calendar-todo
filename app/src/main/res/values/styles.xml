@@ -41,8 +41,10 @@
         <item name="android:src">@drawable/ic_add_circle_outline_black_48dp</item>
     </style>
     <style name="DialogDayItemButton">
-        <item name="android:layout_width">36dp</item>
-        <item name="android:layout_height">36dp</item>
+        <item name="android:layout_width">42dp</item>
+        <item name="android:layout_height">42dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
 

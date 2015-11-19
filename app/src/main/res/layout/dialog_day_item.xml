@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content">
@@ -7,19 +7,31 @@
         android:id="@+id/dialog_cancel_button"
         android:src="@drawable/ic_close_black_48dp"
         android:background="@drawable/round_circle"
+        android:layout_gravity="top|center_horizontal"
+        android:paddingTop="7dp"
+        android:paddingBottom="9dp"
+        android:layout_marginTop="0dp"
+        style="@style/DialogDayItemButton"/>
+    <!-- todo: move out padding shit to dimens -->
+    <ImageView
+        android:id="@+id/dialog_ok_button"
+        android:src="@drawable/ic_check_black_48dp"
+        android:background="@drawable/round_circle"
+        android:layout_gravity="bottom|center_horizontal"
+        android:paddingTop="9dp"
+        android:paddingBottom="7dp"
+        android:layout_marginTop="70dp"
         style="@style/DialogDayItemButton"/>
     <LinearLayout
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:orientation="vertical"
         android:background="@android:color/white">
         <EditText
+            android:id="@+id/dialog_title_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Whadayaneeda do?"/>
     </LinearLayout>
-    <ImageView
-        android:id="@+id/dialog_ok_button"
-        android:src="@drawable/ic_check_black_48dp"
-        style="@style/DialogDayItemButton"/>
-</LinearLayout>
+</FrameLayout>
