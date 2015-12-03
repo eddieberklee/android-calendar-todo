@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,7 @@ public class DayItemDialogFragment extends DialogFragment {
     mRootView = inflater.inflate(R.layout.dialog_day_item, container, false);
 
     init();
+    setListeners();
 
     Drawable cancelButtonBackground = mCancelButton.getBackground();
     Drawable cancelButtonSrc = mCancelButton.getDrawable();
@@ -82,21 +84,7 @@ public class DayItemDialogFragment extends DialogFragment {
     mOkButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        if (mActivity != null) {
-          String dayItemTitle = mDayItemEditText.getText().toString();
-          switch (mDaySectionId) {
-            case DIALOG_DAY_SECTION_MORNING:
-              mActivity.onAddMorningItemClick(dayItemTitle); // TODO: think about better solutions (better than blindly casting at least)
-              break;
-            case DIALOG_DAY_SECTION_AFTERNOON:
-              mActivity.onAddAfternoonItemClick(dayItemTitle); // TODO: think about better solutions (better than blindly casting at least)
-              break;
-            case DIALOG_DAY_SECTION_EVENING:
-              mActivity.onAddEveningItemClick(dayItemTitle); // TODO: think about better solutions (better than blindly casting at least)
-              break;
-          }
-          getDialog().dismiss();
-        }
+        addItem();
       }
     });
 
@@ -114,6 +102,39 @@ public class DayItemDialogFragment extends DialogFragment {
     mDayButton5 = (Button) mRootView.findViewById(R.id.dialog_time_5_button);
     mDayButton6 = (Button) mRootView.findViewById(R.id.dialog_time_6_button);
     mDayButtons = new Button[] { mDayButton1, mDayButton2, mDayButton3, mDayButton4, mDayButton5, mDayButton6 };
+  }
+
+  private View.OnKeyListener mDayItemKeyListener = new View.OnKeyListener() {
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+      if (keyCode == KeyEvent.KEYCODE_ENTER) {
+        addItem();
+        return true;
+      }
+      return false;
+    }
+  };
+
+  private void addItem() {
+    if (mActivity != null) {
+      String dayItemTitle = mDayItemEditText.getText().toString();
+      switch (mDaySectionId) {
+        case DIALOG_DAY_SECTION_MORNING:
+          mActivity.onAddMorningItemClick(dayItemTitle); // TODO: think about better solutions (better than blindly casting at least)
+          break;
+        case DIALOG_DAY_SECTION_AFTERNOON:
+          mActivity.onAddAfternoonItemClick(dayItemTitle); // TODO: think about better solutions (better than blindly casting at least)
+          break;
+        case DIALOG_DAY_SECTION_EVENING:
+          mActivity.onAddEveningItemClick(dayItemTitle); // TODO: think about better solutions (better than blindly casting at least)
+          break;
+      }
+      getDialog().dismiss();
+    }
+  }
+
+  private void setListeners() {
+    mDayItemEditText.setOnKeyListener(mDayItemKeyListener);
   }
 
   private void populateCorrectDates() {
