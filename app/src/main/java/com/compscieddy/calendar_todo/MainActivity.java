@@ -86,8 +86,8 @@ public class MainActivity extends AppCompatActivity implements AddDayItemInterfa
     @Override
     public void onClick(View v) {
       // v.getId()
-      View listView;
-      View summaryText;
+      ListView listView;
+      TextView summaryText;
 
       int viewId = v.getId();
       if (viewId == mMorningHeader.getId()) {
@@ -101,9 +101,12 @@ public class MainActivity extends AppCompatActivity implements AddDayItemInterfa
         summaryText = mEveningSummaryText;
       }
 
+      int itemsCount = listView.getCount();
+      summaryText.setText("count: " + String.valueOf(itemsCount));
+
       boolean isCollapsing = listView.getVisibility() == View.VISIBLE;
       listView.setVisibility(isCollapsing ? View.GONE : View.VISIBLE);
-      summaryText.setVisibility(!isCollapsing ? View.GONE : View.VISIBLE);
+      summaryText.setVisibility(!isCollapsing ? View.INVISIBLE : View.VISIBLE);
 
     }
   };
