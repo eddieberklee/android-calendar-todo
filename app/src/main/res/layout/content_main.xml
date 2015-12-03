@@ -30,6 +30,12 @@
                 style="@style/HeaderTitleTextTheme"
                 android:text="@string/day_section_morning"/>
 
+            <TextView
+                android:id="@+id/morning_section_summary_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/DaySectionSummaryText"/>
+
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -60,6 +66,12 @@
                 style="@style/HeaderTitleTextTheme"
                 android:text="@string/day_section_afternoon"/>
 
+            <TextView
+                android:id="@+id/afternoon_section_summary_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/DaySectionSummaryText"/>
+            
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -89,6 +101,12 @@
                 android:layout_height="wrap_content"
                 style="@style/HeaderTitleTextTheme"
                 android:text="@string/day_section_evening"/>
+
+            <TextView
+                android:id="@+id/evening_section_summary_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/DaySectionSummaryText"/>
 
             <View
                 android:layout_width="0dp"

@@ -4,9 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="morning_color">@color/flatui_yellow_1</color>
-    <color name="afternoon_color">@color/flatui_green_2</color>
-    <color name="evening_color">@color/flatui_blue_1</color>
+    <color name="morning_color">@color/flatui_midnightblue_2</color>
+    <color name="afternoon_color">@color/flatui_yellow_1</color>
+    <color name="evening_color">@color/flatui_red_2</color>
 
     <!-- GENERICS below... -->
 
@@ -29,8 +29,8 @@
     <color name="flatui_blue_2">#2980b9</color>
     <color name="flatui_purple_1">#9b59b6</color>
     <color name="flatui_purple_2">#8e44ad</color>
-    <color name="flatui_slate_1">#34495e</color>
-    <color name="flatui_slate_2">#2c3e50</color>
+    <color name="flatui_midnightblue_1">#34495e</color>
+    <color name="flatui_midnightblue_2">#2c3e50</color>
 
     <color name="black_transp_10">#1A000000</color>
     <color name="black_transp_20">#33000000</color>

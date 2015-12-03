@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -37,6 +38,16 @@ public class DayItemDialogFragment extends DialogFragment {
   };
   private AddDayItemInterface mActivity;
   private EditText mDayItemEditText;
+  private ImageView mOkButton;
+  private ImageView mCancelButton;
+  private View mRootView;
+  private Button mDayButton1;
+  private Button mDayButton2;
+  private Button mDayButton3;
+  private Button mDayButton4;
+  private Button mDayButton5;
+  private Button mDayButton6;
+  private Button[] mDayButtons;
 
   @Nullable
   @Override
@@ -48,26 +59,27 @@ public class DayItemDialogFragment extends DialogFragment {
     }
     mDaySectionId = args.getInt(DIALOG_DAY_SECTION_KEY);
 
-    View rootView = inflater.inflate(R.layout.dialog_day_item, container, false);
-    ImageView cancelButton = (ImageView) rootView.findViewById(R.id.dialog_cancel_button);
-    ImageView okButton = (ImageView) rootView.findViewById(R.id.dialog_ok_button);
-    mDayItemEditText = (EditText) rootView.findViewById(R.id.dialog_title_edit_text);
+    mRootView = inflater.inflate(R.layout.dialog_day_item, container, false);
 
-    Drawable cancelButtonBackground = cancelButton.getBackground();
-    Drawable cancelButtonSrc = cancelButton.getDrawable();
+    init();
+
+    Drawable cancelButtonBackground = mCancelButton.getBackground();
+    Drawable cancelButtonSrc = mCancelButton.getDrawable();
     Util.applyColorFilter(cancelButtonBackground, getResources().getColor(R.color.flatui_red_1));
     Util.applyColorFilter(cancelButtonSrc, getResources().getColor(android.R.color.white));
 
-    Drawable okButtonBackground = okButton.getBackground();
-    Drawable okButtonSrc = okButton.getDrawable();
+    Drawable okButtonBackground = mOkButton.getBackground();
+    Drawable okButtonSrc = mOkButton.getDrawable();
     Util.applyColorFilter(okButtonBackground, getResources().getColor(R.color.flatui_green_1));
     Util.applyColorFilter(okButtonSrc, getResources().getColor(android.R.color.white));
 
-    cancelButton.setOnClickListener(cancelButtonClickListener);
+    populateCorrectDates();
+
+    mCancelButton.setOnClickListener(cancelButtonClickListener);
 
     mActivity = (AddDayItemInterface) getActivity(); // TODO: enforce
 
-    okButton.setOnClickListener(new View.OnClickListener() {
+    mOkButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         if (mActivity != null) {
@@ -88,7 +100,41 @@ public class DayItemDialogFragment extends DialogFragment {
       }
     });
 
-    return rootView;
+    return mRootView;
+  }
+
+  private void init() {
+    mCancelButton = (ImageView) mRootView.findViewById(R.id.dialog_cancel_button);
+    mOkButton = (ImageView) mRootView.findViewById(R.id.dialog_ok_button);
+    mDayItemEditText = (EditText) mRootView.findViewById(R.id.dialog_title_edit_text);
+    mDayButton1 = (Button) mRootView.findViewById(R.id.dialog_time_1_button);
+    mDayButton2 = (Button) mRootView.findViewById(R.id.dialog_time_2_button);
+    mDayButton3 = (Button) mRootView.findViewById(R.id.dialog_time_3_button);
+    mDayButton4 = (Button) mRootView.findViewById(R.id.dialog_time_4_button);
+    mDayButton5 = (Button) mRootView.findViewById(R.id.dialog_time_5_button);
+    mDayButton6 = (Button) mRootView.findViewById(R.id.dialog_time_6_button);
+    mDayButtons = new Button[] { mDayButton1, mDayButton2, mDayButton3, mDayButton4, mDayButton5, mDayButton6 };
+  }
+
+  private void populateCorrectDates() {
+    int startTime = -1, endTime = -1;
+    switch (mDaySectionId) { // TODO: cleanup the logic here once all 4 sections are in
+      case DIALOG_DAY_SECTION_MORNING:
+        startTime = 6;
+        endTime = 12;
+        break;
+      case DIALOG_DAY_SECTION_AFTERNOON:
+        startTime = 12;
+        endTime = 18;
+        break;
+      case DIALOG_DAY_SECTION_EVENING:
+        startTime = 18;
+        endTime = 24;
+        break;
+    }
+    for (int time = startTime; time < endTime; time++) {
+      mDayButtons[time - startTime].setText(Util.militaryTimeToAMPM(time));
+    }
   }
 
   @Override

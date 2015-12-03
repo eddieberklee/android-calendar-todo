@@ -12,9 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.jakewharton.scalpel.ScalpelFrameLayout;
 
@@ -23,12 +25,19 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements AddDayItemInterface {
 
   private static final int MAX_VISIBLE_LIST_COUNT = 4;
-  private ImageView mAddButtonMorning;
-  private ImageView mAddButtonAfternoon;
-  private ImageView mAddButtonEvening;
-  private ListView mListViewMorning;
-  private ListView mListViewAfternoon;
-  private ListView mListViewEvening;
+  private ImageView mMorningAddButton;
+  private ImageView mAfternoonAddButton;
+  private ImageView mEveningAddButton;
+  private ListView mMorningListView;
+  private ListView mAfternoonListView;
+  private ListView mEveningListView;
+  private ViewGroup mMorningHeader;
+  private ViewGroup mAfternoonHeader;
+  private ViewGroup mEveningHeader;
+  private TextView mMorningSummaryText;
+  private TextView mAfternoonSummaryText;
+  private TextView mEveningSummaryText;
+
   private ArrayList<String> mDayItemsMorning = new ArrayList<>();
   private ArrayList<String> mDayItemsAfternoon = new ArrayList<>();
   private ArrayList<String> mDayItemsEvening = new ArrayList<>();
@@ -41,29 +50,27 @@ public class MainActivity extends AppCompatActivity implements AddDayItemInterfa
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
+    init();
+
     mScalpelFrameLayout = (ScalpelFrameLayout) findViewById(R.id.root_scalpel_layout);
     // TODO: this option should be programmed into the onMenuItemSelected() thing
 //    scalpelFrameLayout.setLayerInteractionEnabled(true);
 //    scalpelFrameLayout.setDrawViews(true);
 
-    mAddButtonMorning = (ImageView) findViewById(R.id.add_button_morning);
-    mAddButtonAfternoon = (ImageView) findViewById(R.id.add_button_afternoon);
-    mAddButtonEvening = (ImageView) findViewById(R.id.add_button_evening);
+    mMorningListView.setAdapter(new DayItemsAdapter(MainActivity.this, mDayItemsMorning));
+    mAfternoonListView.setAdapter(new DayItemsAdapter(MainActivity.this, mDayItemsAfternoon));
+    mEveningListView.setAdapter(new DayItemsAdapter(MainActivity.this, mDayItemsEvening));
 
-    mListViewMorning = (ListView) findViewById(R.id.day_section_morning_listview);
-    mListViewAfternoon = (ListView) findViewById(R.id.day_section_afternoon_listview);
-    mListViewEvening = (ListView) findViewById(R.id.day_section_evening_listview);
+    mMorningHeader.setOnClickListener(mHeaderClickListener);
+    mAfternoonHeader.setOnClickListener(mHeaderClickListener);
+    mEveningHeader.setOnClickListener(mHeaderClickListener);
 
-    mListViewMorning.setAdapter(new DayItemsAdapter(MainActivity.this, mDayItemsMorning));
-    mListViewAfternoon.setAdapter(new DayItemsAdapter(MainActivity.this, mDayItemsAfternoon));
-    mListViewEvening.setAdapter(new DayItemsAdapter(MainActivity.this, mDayItemsEvening));
+        // dummy seed
+    addStringToListView(MainActivity.this, "hello there, first item", mDayItemsMorning, mMorningListView);
 
-    // dummy seed
-    addStringToListView(MainActivity.this, "hello there, first item", mDayItemsMorning, mListViewMorning);
-
-    mAddButtonMorning.setOnClickListener(mAddButtonMorningListener);
-    mAddButtonAfternoon.setOnClickListener(mAddButtonAfternoonListener);
-    mAddButtonEvening.setOnClickListener(mAddButtonEveningListener);
+    mMorningAddButton.setOnClickListener(mAddButtonMorningListener);
+    mAfternoonAddButton.setOnClickListener(mAddButtonAfternoonListener);
+    mEveningAddButton.setOnClickListener(mAddButtonEveningListener);
 
     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
     fab.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +80,50 @@ public class MainActivity extends AppCompatActivity implements AddDayItemInterfa
             .setAction("Action", null).show();
       }
     });
+  }
+
+  private View.OnClickListener mHeaderClickListener = new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+      // v.getId()
+      View listView;
+      View summaryText;
+
+      int viewId = v.getId();
+      if (viewId == mMorningHeader.getId()) {
+        listView = mMorningListView;
+        summaryText = mMorningSummaryText;
+      } else if (viewId == mAfternoonHeader.getId()) {
+        listView = mAfternoonListView;
+        summaryText = mAfternoonSummaryText;
+      } else { // viewId == mEveningHeader
+        listView = mEveningListView;
+        summaryText = mEveningSummaryText;
+      }
+
+      boolean isCollapsing = listView.getVisibility() == View.VISIBLE;
+      listView.setVisibility(isCollapsing ? View.GONE : View.VISIBLE);
+      summaryText.setVisibility(!isCollapsing ? View.GONE : View.VISIBLE);
+
+    }
+  };
+
+  private void init() {
+    mMorningAddButton = (ImageView) findViewById(R.id.add_button_morning);
+    mAfternoonAddButton = (ImageView) findViewById(R.id.add_button_afternoon);
+    mEveningAddButton = (ImageView) findViewById(R.id.add_button_evening);
+    
+    mMorningListView = (ListView) findViewById(R.id.day_section_morning_listview);
+    mAfternoonListView = (ListView) findViewById(R.id.day_section_afternoon_listview);
+    mEveningListView = (ListView) findViewById(R.id.day_section_evening_listview);
+    
+    mMorningHeader = (ViewGroup) findViewById(R.id.day_section_morning_header);
+    mAfternoonHeader = (ViewGroup) findViewById(R.id.day_section_afternoon_header);
+    mEveningHeader = (ViewGroup) findViewById(R.id.day_section_evening_header);
+    
+    mMorningSummaryText = (TextView) findViewById(R.id.morning_section_summary_text);
+    mAfternoonSummaryText = (TextView) findViewById(R.id.afternoon_section_summary_text);
+    mEveningSummaryText = (TextView) findViewById(R.id.evening_section_summary_text);
   }
 
   public static void addStringToListView(Context context, String item, ArrayList<String> arrayList, ListView listView) {
@@ -104,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements AddDayItemInterfa
     dialogArgs.putInt(DayItemDialogFragment.DIALOG_DAY_SECTION_KEY, daySectionId);
     dayItemDialogFragment.setArguments(dialogArgs);
     dayItemDialogFragment.show(fragmentTransaction, DAY_ITEM_DIALOG);
-//      addStringToListView("another item", mDayItemsMorning, mListViewMorning);
+//      addStringToListView("another item", mDayItemsMorning, mMorningListView);
   }
 
   private View.OnClickListener mAddButtonMorningListener = new View.OnClickListener() {
@@ -128,24 +179,24 @@ public class MainActivity extends AppCompatActivity implements AddDayItemInterfa
 
   @Override
   public void onAddMorningItemClick(String itemString) {
-    addStringToListView(MainActivity.this, itemString, mDayItemsMorning, mListViewMorning);
+    addStringToListView(MainActivity.this, itemString, mDayItemsMorning, mMorningListView);
   }
   @Override
   public void onAddAfternoonItemClick(String itemString) {
-    addStringToListView(MainActivity.this, itemString, mDayItemsAfternoon, mListViewAfternoon);
+    addStringToListView(MainActivity.this, itemString, mDayItemsAfternoon, mAfternoonListView);
   }
   @Override
   public void onAddEveningItemClick(String itemString) {
-    addStringToListView(MainActivity.this, itemString, mDayItemsEvening, mListViewEvening);
+    addStringToListView(MainActivity.this, itemString, mDayItemsEvening, mEveningListView);
   }
 
   @Override
   protected void onResume() {
     super.onResume();
     // what's a better lifecycle method to place this in?
-    Util.applyColorFilter(mAddButtonMorning.getDrawable(), getResources().getColor(R.color.white_transp_80));
-    Util.applyColorFilter(mAddButtonAfternoon.getDrawable(), getResources().getColor(R.color.white_transp_80));
-    Util.applyColorFilter(mAddButtonEvening.getDrawable(), getResources().getColor(R.color.white_transp_80));
+    Util.applyColorFilter(mMorningAddButton.getDrawable(), getResources().getColor(R.color.white_transp_80));
+    Util.applyColorFilter(mAfternoonAddButton.getDrawable(), getResources().getColor(R.color.white_transp_80));
+    Util.applyColorFilter(mEveningAddButton.getDrawable(), getResources().getColor(R.color.white_transp_80));
   }
 
   @Override

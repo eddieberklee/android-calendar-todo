@@ -29,4 +29,19 @@ public class Util {
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
   }
 
+  /** Time-Related */
+  public static String militaryTimeToAMPM(int militaryTime) {
+    boolean isAM = (militaryTime / 12) < 1;
+    String amPM = isAM ? "am" : "pm";
+    int adjustedTime = militaryTime % 12;
+    if (adjustedTime == 0) {
+      if (militaryTime / 12 == 1) {
+        adjustedTime = 12;
+      } else if (militaryTime / 12 == 1) {
+        adjustedTime = 24;
+      }
+    }
+    return String.valueOf(adjustedTime) + amPM;
+  }
+
 }

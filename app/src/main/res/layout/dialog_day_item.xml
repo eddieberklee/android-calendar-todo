@@ -2,8 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="wrap_content"
-              android:layout_height="300dp">
-    <!-- todo: shit, I really don't like hard-coding this height -->
+              android:layout_height="wrap_content">
+    <!-- todo: clean up UI into styles where applicable -->
     <ImageView
         android:id="@+id/dialog_cancel_button"
         android:src="@drawable/ic_close_black_48dp"
@@ -11,9 +11,7 @@
         android:layout_gravity="top|center_horizontal"
         android:paddingTop="7dp"
         android:paddingBottom="9dp"
-        android:layout_marginTop="0dp"
         style="@style/DialogDayItemButton"/>
-    <!-- todo: move out padding shit to dimens -->
     <!-- todo: marginTop is totally a hack, fix plz -->
     <ImageView
         android:id="@+id/dialog_ok_button"
@@ -22,7 +20,7 @@
         android:layout_gravity="bottom|center_horizontal"
         android:paddingTop="9dp"
         android:paddingBottom="7dp"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="130dp"
         style="@style/DialogDayItemButton"/>
     <LinearLayout
         android:layout_width="300dp"
@@ -39,5 +37,44 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Title of todo..."/>
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/dialog_time_1_button"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="6am"/>
+                <Button
+                    android:id="@+id/dialog_time_2_button"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="7am"/>
+                <Button
+                    android:id="@+id/dialog_time_3_button"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="8am"/>
+                <Button
+                    android:id="@+id/dialog_time_4_button"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="9am"/>
+                <Button
+                    android:id="@+id/dialog_time_5_button"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="10am"/>
+                <Button
+                    android:id="@+id/dialog_time_6_button"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="11am"/>
+            </LinearLayout>
+        </HorizontalScrollView>
     </LinearLayout>
 </FrameLayout>
