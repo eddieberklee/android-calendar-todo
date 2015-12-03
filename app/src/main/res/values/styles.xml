@@ -21,6 +21,7 @@
         <item name="android:paddingTop">@dimen/day_section_list_padding</item>
         <item name="android:paddingLeft">@dimen/day_section_list_padding</item>
         <item name="android:paddingRight">@dimen/day_section_list_padding</item>
+        <item name="android:paddingBottom">@dimen/day_section_list_padding</item>
         <!--<item name="android:paddingBottom">@dimen/day_section_list_padding_smaller</item>-->
         <item name="android:layout_height">wrap_content</item>
         <item name="android:clipToPadding">false</item><!-- add button needed to be adjusted up -->

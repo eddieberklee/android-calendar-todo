@@ -92,30 +92,37 @@ public class MainActivity extends AppCompatActivity implements AddDayItemInterfa
 
   private static final String DAY_ITEM_DIALOG = "day_item_dialog";
 
+  private void showAddDayItemDialog(int daySectionId) {
+    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+    Fragment previousFragment = getFragmentManager().findFragmentByTag(DAY_ITEM_DIALOG);
+    if (previousFragment != null) {
+      fragmentTransaction.remove(previousFragment);
+    }
+    fragmentTransaction.addToBackStack(null);
+    DialogFragment dayItemDialogFragment = new DayItemDialogFragment();
+    Bundle dialogArgs = new Bundle();
+    dialogArgs.putInt(DayItemDialogFragment.DIALOG_DAY_SECTION_KEY, daySectionId);
+    dayItemDialogFragment.setArguments(dialogArgs);
+    dayItemDialogFragment.show(fragmentTransaction, DAY_ITEM_DIALOG);
+//      addStringToListView("another item", mDayItemsMorning, mListViewMorning);
+  }
+
   private View.OnClickListener mAddButtonMorningListener = new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-      FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-      Fragment previousFragment = getFragmentManager().findFragmentByTag(DAY_ITEM_DIALOG);
-      if (previousFragment != null) {
-        fragmentTransaction.remove(previousFragment);
-      }
-      fragmentTransaction.addToBackStack(null);
-      DialogFragment dayItemDialogFragment = new DayItemDialogFragment();
-      dayItemDialogFragment.show(fragmentTransaction, DAY_ITEM_DIALOG);
-//      addStringToListView("another item", mDayItemsMorning, mListViewMorning);
+      showAddDayItemDialog(DayItemDialogFragment.DIALOG_DAY_SECTION_MORNING);
     }
   };
   private View.OnClickListener mAddButtonAfternoonListener = new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-      onAddAfternoonItemClick("dummy afternoon item");
+      showAddDayItemDialog(DayItemDialogFragment.DIALOG_DAY_SECTION_AFTERNOON);
     }
   };
   private View.OnClickListener mAddButtonEveningListener = new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-      onAddEveningItemClick("dummy evening item");
+      showAddDayItemDialog(DayItemDialogFragment.DIALOG_DAY_SECTION_EVENING);
     }
   };
 
