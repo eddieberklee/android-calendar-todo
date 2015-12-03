@@ -6,6 +6,9 @@
         android:id="@+id/action_scalpel"
         android:title="Scalpel On"/>
     <item
+        android:id="@+id/action_screenshot"
+        android:title="Screenshot App"/>
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"

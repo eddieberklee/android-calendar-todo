@@ -4,11 +4,15 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,11 +24,16 @@ import android.widget.TextView;
 
 import com.jakewharton.scalpel.ScalpelFrameLayout;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements AddDayItemInterface {
 
+  private static final String TAG = MainActivity.class.getSimpleName();
   private static final int MAX_VISIBLE_LIST_COUNT = 4;
+
   private ImageView mMorningAddButton;
   private ImageView mAfternoonAddButton;
   private ImageView mEveningAddButton;
@@ -231,8 +240,39 @@ public class MainActivity extends AppCompatActivity implements AddDayItemInterfa
       mScalpelFrameLayout.setDrawViews(turnOn);
       mScalpelFrameLayout.invalidate();
       return true;
+    } else if (id == R.id.action_screenshot) {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        requestPermissions(new String[] { "android.permission.WRITE_EXTERNAL_STORAGE" }, REQUEST_EXTERNAL_DIRECTORY_WRITE);
+      } else {
+        saveViewBitmap();
+      }
+      return true;
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  private final int REQUEST_EXTERNAL_DIRECTORY_WRITE = 100;
+
+  private void saveViewBitmap() {
+    try {
+      View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
+      rootView.setDrawingCacheEnabled(true);
+      Bitmap b = rootView.getDrawingCache();
+      File defaultFilePath = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString() + "/" + "calendar_todo_screenshot_" + System.currentTimeMillis() + ".jpg");
+      b.compress(Bitmap.CompressFormat.JPEG, 100, new FileOutputStream(defaultFilePath));
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      Log.e(TAG, "We couldn't save the fucking screenshot, sorry bro #brogrammer");
+    }
+  }
+
+  @Override
+  public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    switch (requestCode) {
+      case REQUEST_EXTERNAL_DIRECTORY_WRITE:
+        saveViewBitmap();
+        break;
+    }
   }
 }

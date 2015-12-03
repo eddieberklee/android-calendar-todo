@@ -17,8 +17,7 @@ TODO:
   * Header Count (Expanding/Collapsing)
     * Need something like a listViewCountChangedListener for updating the summary text
     OR * Adding an item should expand the day section
-    
-  * ENTER should be the same as clicking the 'check' in dialog
+  * Enter doesn't work on an actual device - only on computer keyboard
 
 
 Problems:
