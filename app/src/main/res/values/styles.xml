@@ -14,9 +14,6 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
-    <style name="HeaderTitleTextTheme">
-        <item name="android:textColor">@color/white_transp_90</item><!-- create colors of percentages of black -->
-    </style>
     <style name="HeaderLayoutTheme">
         <item name="android:paddingTop">@dimen/day_section_list_padding</item>
         <item name="android:paddingLeft">@dimen/day_section_list_padding</item>
@@ -48,8 +45,15 @@
         <item name="android:paddingRight">8dp</item>
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
+
+    <style name="HeaderTitleTextTheme">
+        <item name="android:textColor">@color/white_transp_90</item><!-- create colors of percentages of black -->
+    </style>
     <style name="DaySectionSummaryText">
-        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_gravity">top</item>
+        <item name="android:textColor">@color/flatui_lightgrey_2</item>
+        <item name="android:textSize">11sp</item>
     </style>
 
 </resources>
