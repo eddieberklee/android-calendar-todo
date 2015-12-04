@@ -121,12 +121,15 @@ public class DayItemDialogFragment extends DialogFragment {
       switch (mDaySectionId) {
         case DIALOG_DAY_SECTION_MORNING:
           mActivity.onAddMorningItemClick(dayItemTitle); // TODO: think about better solutions (better than blindly casting at least)
+          mActivity.updateMorningSummaryCount();
           break;
         case DIALOG_DAY_SECTION_AFTERNOON:
           mActivity.onAddAfternoonItemClick(dayItemTitle); // TODO: think about better solutions (better than blindly casting at least)
+          mActivity.updateAfternoonSummaryCount();
           break;
         case DIALOG_DAY_SECTION_EVENING:
           mActivity.onAddEveningItemClick(dayItemTitle); // TODO: think about better solutions (better than blindly casting at least)
+          mActivity.updateEveningSummaryCount();
           break;
       }
       getDialog().dismiss();

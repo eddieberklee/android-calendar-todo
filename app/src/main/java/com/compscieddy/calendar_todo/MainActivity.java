@@ -114,17 +114,21 @@ public class MainActivity extends AppCompatActivity implements AddDayItemInterfa
 
       boolean isCollapsing = listView.getVisibility() == View.VISIBLE;
 
-      if (itemsCount != 0) {
-        // TODO: move out into formatted @string
-        // Html.fromHtml("<u>" +
-        summaryText.setText(String.valueOf(itemsCount) + " MORE"); // todo: maybe even underline this here
-        summaryText.setVisibility(!isCollapsing ? View.INVISIBLE : View.VISIBLE);
-      }
+      updateSummaryCount(summaryText, itemsCount);
+      summaryText.setVisibility(!isCollapsing ? View.INVISIBLE : View.VISIBLE);
 
       listView.setVisibility(isCollapsing ? View.GONE : View.VISIBLE);
 
     }
   };
+
+  private void updateSummaryCount(TextView summaryText, int itemsCount) {
+    if (itemsCount != 0) {
+      // TODO: move out into formatted @string
+      // Html.fromHtml("<u>" +
+      summaryText.setText(String.valueOf(itemsCount) + " MORE"); // todo: maybe even underline this here
+    }
+  }
 
   private void init() {
     mMorningAddButton = (ImageView) findViewById(R.id.add_button_morning);
@@ -209,6 +213,21 @@ public class MainActivity extends AppCompatActivity implements AddDayItemInterfa
   }
 
   @Override
+  public void updateMorningSummaryCount() {
+    updateSummaryCount(mMorningSummaryText, mMorningListView.getCount());
+  }
+
+  @Override
+  public void updateAfternoonSummaryCount() {
+    updateSummaryCount(mAfternoonSummaryText, mAfternoonListView.getCount());
+  }
+
+  @Override
+  public void updateEveningSummaryCount() {
+    updateSummaryCount(mEveningSummaryText, mEveningListView.getCount());
+  }
+
+  @Override
   protected void onResume() {
     super.onResume();
     // what's a better lifecycle method to place this in?
@@ -263,6 +282,7 @@ public class MainActivity extends AppCompatActivity implements AddDayItemInterfa
       b.compress(Bitmap.CompressFormat.JPEG, 100, new FileOutputStream(defaultFilePath));
     } catch (FileNotFoundException e) {
       e.printStackTrace();
+      Util.showToast(MainActivity.this, "Eyyyy yo set some permissions on or something");
       Log.e(TAG, "We couldn't save the fucking screenshot, sorry bro #brogrammer");
     }
   }
