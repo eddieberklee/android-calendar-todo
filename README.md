@@ -19,6 +19,12 @@ TODO:
     OR * Adding an item should expand the day section
   * Enter doesn't work on an actual device - only on computer keyboard
 
+Quick Bugs
+  * Hiding nothing shouldn't show that border for the summary text
+
+Swipe Bugs:
+  * Setting a maximum for swiping too much to the right
+
 
 Problems:
   * Expanded/collapsed state is confusing (not apparent, no indicators)
