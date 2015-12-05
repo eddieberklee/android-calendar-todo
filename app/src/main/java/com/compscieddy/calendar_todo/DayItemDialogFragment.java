@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -118,6 +119,11 @@ public class DayItemDialogFragment extends DialogFragment {
   private void addItem() {
     if (mActivity != null) {
       String dayItemTitle = mDayItemEditText.getText().toString();
+
+      if (TextUtils.isEmpty(dayItemTitle)) {
+        // show error and reject - todo don't let users add items with no title
+      }
+
       switch (mDaySectionId) {
         case DIALOG_DAY_SECTION_MORNING:
           mActivity.onAddMorningItemClick(dayItemTitle); // TODO: think about better solutions (better than blindly casting at least)

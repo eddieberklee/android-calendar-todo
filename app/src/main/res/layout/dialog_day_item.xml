@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content">
+             android:orientation="vertical"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content">
     <!-- todo: clean up UI into styles where applicable -->
     <ImageView
         android:id="@+id/dialog_cancel_button"
@@ -31,7 +31,7 @@
         android:paddingBottom="5dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:background="@android:color/white">
+        android:background="@drawable/white_rounded_corner_padding">
         <EditText
             android:id="@+id/dialog_title_edit_text"
             android:layout_width="match_parent"
