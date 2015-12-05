@@ -74,8 +74,10 @@ public class MainActivity extends AppCompatActivity implements AddDayItemInterfa
     mAfternoonHeader.setOnClickListener(mHeaderClickListener);
     mEveningHeader.setOnClickListener(mHeaderClickListener);
 
-        // dummy seed
-    addStringToListView(MainActivity.this, "hello there, first item", mDayItemsMorning, mMorningListView);
+    // dummy seed
+    addStringToListView(MainActivity.this, "Go through some treehouse vids", mDayItemsMorning, mMorningListView);
+    addStringToListView(MainActivity.this, "Read 10 pages of the Advanced Android", mDayItemsMorning, mMorningListView);
+    addStringToListView(MainActivity.this, "Work on the calendar-todo project some more", mDayItemsMorning, mMorningListView);
 
     mMorningAddButton.setOnClickListener(mAddButtonMorningListener);
     mAfternoonAddButton.setOnClickListener(mAddButtonAfternoonListener);

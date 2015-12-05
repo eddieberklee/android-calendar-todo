@@ -1,6 +1,7 @@
 package com.compscieddy.calendar_todo;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -42,6 +43,14 @@ public class Util {
       }
     }
     return String.valueOf(adjustedTime) + amPM;
+  }
+
+  public static int dpToPx(int dp) {
+    return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
+  }
+
+  public static int pxToDp(int px) {
+    return (int) (px / Resources.getSystem().getDisplayMetrics().density);
   }
 
 }
