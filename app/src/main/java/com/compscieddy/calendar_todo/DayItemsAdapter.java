@@ -33,11 +33,11 @@ public class DayItemsAdapter extends ArrayAdapter<String> {
     LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     View rowView = layoutInflater.inflate(R.layout.day_item_layout, parent, false);
 
-    mStartingX = parent.getPaddingLeft();
-    rowView.setOnTouchListener(new OnSwipeTouchListener(mContext, rowView));
+    mStartingX = mContext.getResources().getDimensionPixelOffset(R.dimen.day_item_list_margin_left);
 
     TextView textView = (TextView) rowView.findViewById(R.id.day_item_title);
     textView.setText(values.get(position));
+    textView.setOnTouchListener(new OnSwipeTouchListener(mContext, textView));
 
     return rowView;
   }
@@ -76,12 +76,15 @@ public class DayItemsAdapter extends ArrayAdapter<String> {
         return true;
       }
 
+      // TODO: add onFling() that does similar shit to onScroll() but maybe with some more specific optimizations/thresholds
+
       @Override
       public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
 
         float rawDistanceX = e2.getRawX() - e1.getRawX();
         if (rawDistanceX < 0) {
           // Log.e(TAG, "Going left <-- x:" + rawDistanceX);
+          // TODO: need left for closing up
         } else {
           // Log.e(TAG, "Going right -->x:" + rawDistanceX);
           if (rawDistanceX > START_SWIPE_THRESHOLD) {

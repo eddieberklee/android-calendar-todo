@@ -2,14 +2,20 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
+             android:paddingBottom="6dp"
              android:background="@android:color/transparent">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test Button"/>
 
     <TextView
         android:id="@+id/day_item_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:background="@drawable/white_rounded_corner_padding_item"
-        android:layout_marginBottom="6dp"/>
+        android:layout_marginLeft="@dimen/day_item_list_margin_left"
+        android:background="@drawable/white_rounded_corner_padding_item"/>
 
 </FrameLayout>
