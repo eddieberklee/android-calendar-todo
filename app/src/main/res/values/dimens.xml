@@ -5,9 +5,12 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="standard_padding">16dp</dimen>
-    <dimen name="day_section_list_padding">16dp</dimen>
     <dimen name="day_section_list_padding_smaller">8dp</dimen>
     <dimen name="list_day_item_height">40dp</dimen>
+
+    <!-- For now, instead of subtracting programmatically -->
+    <dimen name="day_section_list_padding">16dp</dimen>
     <dimen name="day_item_list_margin_left">8dp</dimen>
+    <dimen name="day_section_list_padding_left">8dp</dimen><!-- (16 - 8) -->
 
 </resources>

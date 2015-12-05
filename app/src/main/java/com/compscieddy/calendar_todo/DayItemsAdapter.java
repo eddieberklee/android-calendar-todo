@@ -20,7 +20,6 @@ public class DayItemsAdapter extends ArrayAdapter<String> {
 
   private final Context mContext;
   private final ArrayList<String> values;
-  private int mStartingX; // for resetting the swipe
 
   public DayItemsAdapter(Context context, ArrayList<String> values) {
     super(context, 0, values);
@@ -33,11 +32,11 @@ public class DayItemsAdapter extends ArrayAdapter<String> {
     LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     View rowView = layoutInflater.inflate(R.layout.day_item_layout, parent, false);
 
-    mStartingX = mContext.getResources().getDimensionPixelOffset(R.dimen.day_item_list_margin_left);
+    ViewGroup undergroundContainer = (ViewGroup) rowView.findViewById(R.id.underground_container);
 
-    TextView textView = (TextView) rowView.findViewById(R.id.day_item_title);
-    textView.setText(values.get(position));
-    textView.setOnTouchListener(new OnSwipeTouchListener(mContext, textView));
+    TextView titleText = (TextView) rowView.findViewById(R.id.day_item_title);
+    titleText.setText(values.get(position));
+    titleText.setOnTouchListener(new OnSwipeTouchListener(mContext, titleText, undergroundContainer));
 
     return rowView;
   }
@@ -46,10 +45,12 @@ public class DayItemsAdapter extends ArrayAdapter<String> {
   public class OnSwipeTouchListener implements View.OnTouchListener {
 
     private GestureDetector mGestureDetector;
+    private GestureListener mGestureListener;
     private Context mContext;
 
-    public OnSwipeTouchListener(Context context, View view) { // isn't there a way to directly get the view from the listener?
-      mGestureDetector = new GestureDetector(context, new GestureListener(view));
+    public OnSwipeTouchListener(Context context, View titleView, ViewGroup undergroundContainer) { // isn't there a way to directly get the view from the listener?
+      mGestureListener = new GestureListener(titleView, undergroundContainer);
+      mGestureDetector = new GestureDetector(context, mGestureListener);
       mContext = context;
     }
 
@@ -57,18 +58,28 @@ public class DayItemsAdapter extends ArrayAdapter<String> {
     public boolean onTouch(View v, MotionEvent event) {
       if (event.getAction() == MotionEvent.ACTION_UP
           || event.getAction() == MotionEvent.ACTION_CANCEL) {
-        v.animate().x(mStartingX);
+        v.animate().x(mGestureListener.getActionUpX());
       }
       return mGestureDetector.onTouchEvent(event);
     }
 
+    /** Gesture Listener Code */
+
     private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
       private static final int START_SWIPE_THRESHOLD = 40; // amount to go before animating views for scrolling
+      private static final float SWIPE_OPEN_THRESHOLD = 0.35f;
 
+      private Context mContext;
       private View mView;
+      private ViewGroup mUndergroundContainer;
+      private int mActionUpX;
+      private boolean mIsPastSwipeOpenThreshold;
 
-      public GestureListener(View view) {
-        mView = view;
+      public GestureListener(View mainView, ViewGroup undergroundContainer) {
+        mView = mainView;
+        mContext = mainView.getContext();
+        mUndergroundContainer = undergroundContainer;
+        mActionUpX = mContext.getResources().getDimensionPixelOffset(R.dimen.day_item_list_margin_left);
       }
 
       @Override
@@ -90,9 +101,18 @@ public class DayItemsAdapter extends ArrayAdapter<String> {
           if (rawDistanceX > START_SWIPE_THRESHOLD) {
             mView.setX(rawDistanceX);
           }
+
+          mIsPastSwipeOpenThreshold = (rawDistanceX / mView.getWidth() >= SWIPE_OPEN_THRESHOLD);
         }
 
-        return false;
+        return true; // this might fuck up onFling() shit
+      }
+
+      public int getActionUpX() {
+        if (mIsPastSwipeOpenThreshold) {
+          return mUndergroundContainer.getWidth();
+        }
+        return mActionUpX;
       }
     }
   }

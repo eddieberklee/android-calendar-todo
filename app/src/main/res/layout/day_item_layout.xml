@@ -2,13 +2,18 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             android:paddingBottom="6dp"
+             android:paddingBottom="4dp"
              android:background="@android:color/transparent">
 
-    <Button
+    <FrameLayout
+        android:id="@+id/underground_container"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Test Button"/>
+        android:layout_height="match_parent">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test Button"/>
+    </FrameLayout>
 
     <TextView
         android:id="@+id/day_item_title"
