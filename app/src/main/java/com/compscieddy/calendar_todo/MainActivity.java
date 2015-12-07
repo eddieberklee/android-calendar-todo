@@ -17,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -119,10 +121,63 @@ public class MainActivity extends AppCompatActivity implements AddDayItemInterfa
       updateSummaryCount(summaryText, itemsCount);
       summaryText.setVisibility(!isCollapsing ? View.INVISIBLE : View.VISIBLE);
 
-      listView.setVisibility(isCollapsing ? View.GONE : View.VISIBLE);
+      collapse(listView);
+//      listView.setVisibility(isCollapsing ? View.GONE : View.VISIBLE);
 
     }
   };
+
+  private void collapse(final View view) {
+    final int initialHeight = view.getMeasuredHeight();
+    Animation a = new Animation() {
+      @Override
+      public boolean willChangeBounds() {
+        return true;
+      }
+
+      @Override
+      protected void applyTransformation(float interpolatedTime, Transformation t) {
+        int height;
+        if (interpolatedTime == 1) {
+          view.setVisibility(View.INVISIBLE);
+          height = 0;
+        } else {
+          height = (int) (initialHeight - (initialHeight * interpolatedTime));
+        }
+        view.getLayoutParams().height = height;
+        view.requestLayout();
+      }
+    };
+    // 1dp per ms
+    a.setDuration((int) (initialHeight / view.getContext().getResources().getDisplayMetrics().density));
+    view.startAnimation(a);
+  }
+
+  private void expand(final View view) {
+    final int initialHeight = view.getMeasuredHeight();
+    Animation a = new Animation() {
+      @Override
+      public boolean willChangeBounds() {
+        return true;
+      }
+
+      @Override
+      protected void applyTransformation(float interpolatedTime, Transformation t) {
+        int height;
+        if (interpolatedTime == 1) {
+          view.setVisibility(View.INVISIBLE);
+          height = 0;
+        } else {
+          height = (int) (initialHeight - (initialHeight * interpolatedTime));
+        }
+        view.getLayoutParams().height = height;
+        view.requestLayout();
+      }
+    };
+    // 1dp per ms
+    a.setDuration((int) (initialHeight / view.getContext().getResources().getDisplayMetrics().density));
+    view.startAnimation(a);
+  }
 
   private void updateSummaryCount(TextView summaryText, int itemsCount) {
     if (itemsCount != 0) {

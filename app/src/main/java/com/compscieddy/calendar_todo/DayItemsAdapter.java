@@ -74,6 +74,7 @@ public class DayItemsAdapter extends ArrayAdapter<String> {
       private ViewGroup mUndergroundContainer;
       private int mActionUpX;
       private boolean mIsPastSwipeOpenThreshold;
+      private int mStartingX; // necessary for when the row item is swiped open
 
       public GestureListener(View mainView, ViewGroup undergroundContainer) {
         mView = mainView;
@@ -84,6 +85,7 @@ public class DayItemsAdapter extends ArrayAdapter<String> {
 
       @Override
       public boolean onDown(MotionEvent e) {
+        mStartingX = Math.round(mView.getX());
         return true;
       }
 
@@ -92,17 +94,17 @@ public class DayItemsAdapter extends ArrayAdapter<String> {
       @Override
       public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
 
-        float rawDistanceX = e2.getRawX() - e1.getRawX();
+        float rawDistanceX = e2.getRawX() - e1.getRawX(); // TODO: incorrect to assume drag when the view is starting from 0
         if (rawDistanceX < 0) {
-          // Log.e(TAG, "Going left <-- x:" + rawDistanceX);
-          // TODO: need left for closing up
+          // Log.e(TAG, "Going left <-- x:" + `rawDistanceX);
+          // TODO: if it's already closed, you shouldn't be able to close anymore!
+          mIsPastSwipeOpenThreshold = false;
+          mView.setX(rawDistanceX + mStartingX);
         } else {
           // Log.e(TAG, "Going right -->x:" + rawDistanceX);
-          if (rawDistanceX > START_SWIPE_THRESHOLD) {
-            mView.setX(rawDistanceX);
-          }
+          mView.setX(rawDistanceX + mStartingX);
 
-          mIsPastSwipeOpenThreshold = (rawDistanceX / mView.getWidth() >= SWIPE_OPEN_THRESHOLD);
+          mIsPastSwipeOpenThreshold = (e2.getRawX() / mView.getWidth() >= SWIPE_OPEN_THRESHOLD);
         }
 
         return true; // this might fuck up onFling() shit
